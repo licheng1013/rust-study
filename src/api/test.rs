@@ -1,7 +1,7 @@
 use crate::service::user::UserService;
 use crate::util::r;
 use actix_web::get;
-use actix_web::web::Json;
+use actix_web::web::{Json, Path};
 use actix_web::{Responder, Result};
 
 /// 测试错误返回
@@ -16,4 +16,10 @@ pub async fn test1() -> Result<impl Responder> {
 pub async fn test2() -> Result<impl Responder> {
     let sum = 10 / 0;
     Ok(Json(r::fail(sum.to_string())))
+}
+
+/// 测试-数组元素
+#[get("/3/{list}")]
+pub async fn test3(list: Path<String>) -> Result<impl Responder> {
+    Ok(Json(r::ok_data(list.into_inner())))
 }

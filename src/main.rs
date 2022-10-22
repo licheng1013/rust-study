@@ -33,7 +33,8 @@ async fn main() -> std::io::Result<()> {
             .service(
                 web::scope("/test")
                     .service(api::test::test1)
-                    .service(api::test::test2),
+                    .service(api::test::test2)
+                    .service(api::test::test3),
             )
     })
     .bind((addrs, port))?
