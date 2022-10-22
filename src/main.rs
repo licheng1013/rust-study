@@ -5,6 +5,7 @@ mod api;
 mod entity;
 mod middleware;
 mod service;
+mod test;
 mod util;
 
 use crate::middleware::error::add_error_header;
@@ -14,6 +15,8 @@ use actix_web::{get, post, web, App, HttpServer};
 
 #[actix_web::main]
 async fn main() -> std::io::Result<()> {
+    test::test::test_study();
+
     let addrs = "127.0.0.1";
     let port = 8080;
     println!("http://{}:{}", addrs, port);
