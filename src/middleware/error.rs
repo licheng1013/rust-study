@@ -1,5 +1,5 @@
 use actix_web::middleware::ErrorHandlerResponse;
-use actix_web::{dev, http::header, HttpResponse, Result};
+use actix_web::{dev, http::header, Result};
 
 pub fn add_error_header<B>(mut res: dev::ServiceResponse<B>) -> Result<ErrorHandlerResponse<B>> {
     println!("出现异常");
