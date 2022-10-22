@@ -1,11 +1,8 @@
-use actix_web::middleware::{ErrorHandlerResponse, ErrorHandlers};
-use actix_web::{
-    dev,
-    http::{header, StatusCode},
-    web, App, HttpResponse, HttpServer, Result,
-};
+use actix_web::middleware::ErrorHandlerResponse;
+use actix_web::{dev, http::header, HttpResponse, Result};
 
-fn add_error_header<B>(mut res: dev::ServiceResponse<B>) -> Result<ErrorHandlerResponse<B>> {
+pub fn add_error_header<B>(mut res: dev::ServiceResponse<B>) -> Result<ErrorHandlerResponse<B>> {
+    println!("出现异常");
     res.response_mut().headers_mut().insert(
         header::CONTENT_TYPE,
         header::HeaderValue::from_static("Error"),
