@@ -3,6 +3,7 @@ use crate::{get, post};
 
 #[get("/")]
 pub async fn hello() -> impl Responder {
+    println!("Hello");
     HttpResponse::Ok().body("Hello world!")
 }
 
