@@ -7,42 +7,47 @@
 //     //USER_ROUTER.get(login)
 // }
 
-use actix_web::{HttpResponse, Responder, Result};
-use actix_web::web::{Json, Path, Query};
-use crate::{ get};
 use crate::entity::user::User;
-//use crate::util::r::R;
-
-/// 测试
-#[get("/test")]
-pub async fn test(user: Json<User>) -> Result<String> {
-    Ok(format!("Welcome {}!", user.username))
-    //println!("Hello Login");
-}
+use crate::util::r;
+use crate::{get, post};
+use actix_web::web::{Json, Path, Query};
+use actix_web::{Responder, Result};
 
 /// 登入接口
 #[get("/login")]
-pub async fn login() -> impl Responder {
-    HttpResponse::Ok().body("Hello login!")
+pub async fn login() -> Result<impl Responder> {
+    let result = r::ok_msg("login".to_string());
+    Ok(Json(result))
 }
 
-
-/// 路径参数解析
+/// 单个 - 示例: 路径参数解析
 #[get("/one/{id}")]
 pub async fn one(id: Path<i64>) -> Result<impl Responder> {
     let user = User {
         username: id.to_string(),
         password: "".to_string(),
     };
-    Ok(Json(user))
+    let result = r::ok_data(user);
+    Ok(Json(result))
 }
 
-/// 查询list
+/// 列表
 #[get("/list")]
-pub async fn list(user: Query<User>) -> impl Responder {
-    format!("Your name is {},and Your password is {}", user.username,user.password)
+pub async fn list(user: Query<User>) -> Result<impl Responder> {
+    let result = r::ok_data(user.into_inner());
+    Ok(Json(result))
+}
 
+/// 修改
+#[post("/update")]
+pub async fn update(user: Query<User>) -> Result<impl Responder> {
+    let result = r::ok_data(user.into_inner());
+    Ok(Json(result))
+}
 
-
-    //Ok(Json(user.to_string()))
+/// 删除
+#[post("/delete")]
+pub async fn delete(user: Query<User>) -> Result<impl Responder> {
+    let result = r::ok_data(user.into_inner());
+    Ok(Json(result))
 }

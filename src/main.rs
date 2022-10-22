@@ -3,10 +3,12 @@
 // }
 mod api;
 mod entity;
+mod middleware;
+mod service;
 mod util;
 
-use actix_web::{App, HttpServer, get, post, web};
 use actix_web::middleware::Logger;
+use actix_web::{get, post, web, App, HttpServer};
 
 #[actix_web::main]
 async fn main() -> std::io::Result<()> {
@@ -16,30 +18,24 @@ async fn main() -> std::io::Result<()> {
 
     //let mut user = web::scope("/user").service(api::user::login);
 
-
     HttpServer::new(|| {
         App::new()
             .wrap(Logger::default())
             .service(api::index::hello)
             .service(api::index::echo)
-
-
-            .service(web::scope("/user")
-                .service(api::user::login)
-                .service(api::user::test)
-                .service(api::user::one)
-                .service(api::user::list)
+            .service(
+                web::scope("/user")
+                    .service(api::user::login)
+                    .service(api::user::one)
+                    .service(api::user::list),
             )
-            //.route("/hey", web::get().to(manual_hello))
-
+            .service(
+                web::scope("/test")
+                    .service(api::test::test1)
+                    .service(api::test::test2),
+            )
     })
-    .bind((addrs, port))?.run()
+    .bind((addrs, port))?
+    .run()
     .await
 }
-
-
-
-// async fn manual_hello() -> impl Responder {
-//     HttpResponse::Ok().body("Hey there!")
-// }
-
