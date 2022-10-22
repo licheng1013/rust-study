@@ -7,12 +7,15 @@
 //     //USER_ROUTER.get(login)
 // }
 
-use actix_web::{HttpResponse, Responder, web, Result};
-use crate::{entity, get};
+use actix_web::{HttpResponse, Responder, Result};
+use actix_web::web::{Json, Path, Query};
+use crate::{ get};
+use crate::entity::user::User;
+//use crate::util::r::R;
 
 /// 测试
 #[get("/test")]
-pub async fn test(user: web::Json<entity::user::User>) -> Result<String> {
+pub async fn test(user: Json<User>) -> Result<String> {
     Ok(format!("Welcome {}!", user.username))
     //println!("Hello Login");
 }
@@ -24,12 +27,22 @@ pub async fn login() -> impl Responder {
 }
 
 
-/// 调试接口
+/// 路径参数解析
 #[get("/one/{id}")]
-pub async fn one(id: web::Path<i64>) -> Result<impl Responder> {
-    let user = entity::user::User {
+pub async fn one(id: Path<i64>) -> Result<impl Responder> {
+    let user = User {
         username: id.to_string(),
         password: "".to_string(),
     };
-    Ok(web::Json(user))
+    Ok(Json(user))
+}
+
+/// 查询list
+#[get("/list")]
+pub async fn list(user: Query<User>) -> impl Responder {
+    format!("Your name is {},and Your password is {}", user.username,user.password)
+
+
+
+    //Ok(Json(user.to_string()))
 }

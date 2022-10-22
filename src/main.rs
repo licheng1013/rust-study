@@ -3,6 +3,7 @@
 // }
 mod api;
 mod entity;
+mod util;
 
 use actix_web::{App, HttpServer, get, post, web};
 use actix_web::middleware::Logger;
@@ -27,6 +28,7 @@ async fn main() -> std::io::Result<()> {
                 .service(api::user::login)
                 .service(api::user::test)
                 .service(api::user::one)
+                .service(api::user::list)
             )
             //.route("/hey", web::get().to(manual_hello))
 
