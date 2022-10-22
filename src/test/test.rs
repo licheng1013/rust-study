@@ -19,8 +19,9 @@ pub fn test_study() {
     let mut scores = HashMap::new();
     scores.insert(String::from("Blue"), 10);
     scores.insert(String::from("Yellow"), 50);
-    let score = scores.get(&String::from("Blue"));
+    let  score = scores.get(&String::from("Blue"));
     println!("{:?}",score);
+    println!("字符串转换: {}", stringify!(123));
 
     println!("练习结束-----------------------------------------------");
 }
