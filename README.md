@@ -16,4 +16,5 @@
 - 获取可以打包的列表
 - rustc --print target-list
 - rustup target add x86_64-unknown-linux-musl
+- 默认打包本平台: cargo build --release
 - cargo build --release --target=x86_64-unknown-linux-musl
