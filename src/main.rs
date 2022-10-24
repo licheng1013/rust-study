@@ -10,20 +10,19 @@ mod util;
 
 use crate::middleware::error::add_error_header;
 use actix_web::http::StatusCode;
-use actix_web::middleware::ErrorHandlers;
+use actix_web::middleware::{ErrorHandlers, Logger};
 use actix_web::{get, post, web, App, HttpServer};
 
 #[actix_web::main]
 async fn main() -> std::io::Result<()> {
     test::test::test_study();
 
-    let addrs = "127.0.0.1";
     let port = 8080;
-    println!("http://{}:{}", addrs, port);
+    println!("http://localhost:{}", port);
 
     HttpServer::new(|| {
         App::new()
-            //.wrap(Logger::default())
+            .wrap(Logger::default())
             .wrap(ErrorHandlers::new().handler(StatusCode::OK, add_error_header))
             .service(api::index::hello)
             .service(api::index::echo)
@@ -40,7 +39,7 @@ async fn main() -> std::io::Result<()> {
                     .service(api::test::test3),
             )
     })
-    .bind((addrs, port))?
+    .bind(("0.0.0.0", port))?
     .run()
     .await
 }
