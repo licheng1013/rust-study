@@ -13,6 +13,9 @@ use actix_web::http::StatusCode;
 use actix_web::middleware::{ErrorHandlers, Logger};
 use actix_web::{get, post, web, App, HttpServer};
 
+use futures::future::FutureExt;
+use actix_web::dev::Service;
+
 #[actix_web::main]
 async fn main() -> std::io::Result<()> {
     test::test::test_study();
@@ -22,6 +25,14 @@ async fn main() -> std::io::Result<()> {
 
     HttpServer::new(|| {
         App::new()
+            .wrap_fn(|req, srv| {
+                println!("Hi from start. You requested: {}", req.path());
+                srv.call(req).map(|res| {
+                    println!("Hi from response");
+                    res
+                })
+            })
+
             .wrap(Logger::default())
             .wrap(actix_web::middleware::DefaultHeaders::new())
 
