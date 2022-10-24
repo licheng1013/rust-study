@@ -10,3 +10,10 @@
 
 ## 学习
 - 路由使用
+
+
+## 打包
+- 获取可以打包的列表
+- rustc --print target-list
+- rustup target add x86_64-unknown-linux-musl
+- cargo build --release --target=x86_64-unknown-linux-musl
