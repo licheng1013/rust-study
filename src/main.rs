@@ -23,6 +23,8 @@ async fn main() -> std::io::Result<()> {
     HttpServer::new(|| {
         App::new()
             .wrap(Logger::default())
+            .wrap(actix_web::middleware::DefaultHeaders::new())
+
             .wrap(ErrorHandlers::new().handler(StatusCode::OK, add_error_header))
             .service(api::index::hello)
             .service(api::index::echo)
