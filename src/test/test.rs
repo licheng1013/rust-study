@@ -61,6 +61,8 @@ pub fn test_study() {
 
     println!("\n文件读取-----------------------------------------------");
     read_file_test();
+    println!("\n泛型测试-----------------------------------------------");
+    println!("泛型的最大值: {}",get_max(&[1,2,3,4]));
 
     println!("练习结束-----------------------------------------------");
 }
@@ -112,7 +114,7 @@ fn get_type(t: Type) -> i32 {
 }
 
 /// 文件读取
-fn read_file_test(){
+fn read_file_test() {
     let file_name = "Hello.txt";
 
     let f = File::open(file_name);
@@ -130,19 +132,26 @@ fn read_file_test(){
     };
 
     let _result = f.write("HelloWorld".as_ref());
-    println!("写入的字符数: {:?}",_result);
-
+    println!("写入的字符数: {:?}", _result);
 
     let mut read_info = String::new();
     let result = f.read_to_string(&mut read_info);
-    println!("读取文件: {}",read_info);
-    println!("读取的字符数: {:?}",result);
-    println!("文件信息: {:#?}",f.metadata());
+    println!("读取文件: {}", read_info);
+    println!("读取的字符数: {:?}", result);
+    println!("文件信息: {:#?}", f.metadata());
 
-    let string = file_name.to_owned()+"1";
+    let string = file_name.to_owned() + "1";
     let path = Path::new(&string);
     println!("文件的存在与否需要通过: is_file来进行判断");
-    println!("是文件: {},是目录: {}",path.is_file(),path.is_dir());
-    println!("文件名: {:#?}",path.file_name())
+    println!("是文件: {},是目录: {}", path.is_file(), path.is_dir());
+    println!("文件名: {:#?}", path.file_name())
 
+
+}
+
+/// 获取最大数测试失败！
+fn get_max<T>(list: &[T]) -> T {
+    let mut v :T;
+    v = &list[0];
+    return v
 }
