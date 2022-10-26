@@ -23,8 +23,8 @@ pub fn test_study() {
     // map
     println!("\nmap-----------------------------------------------");
     let mut scores = HashMap::new();
-    scores.insert(String::from("Blue"), 10);
-    scores.insert(String::from("Yellow"), 50);
+    scores.insert("Blue".to_string(), 10);
+    scores.insert("Yellow".to_string(), 50);
     let score = scores.get(&String::from("Blue"));
     println!("{:?}", score);
     println!("字符串转换: {}", stringify!(123));
@@ -61,8 +61,9 @@ pub fn test_study() {
 
     println!("\n文件读取-----------------------------------------------");
     read_file_test();
-    println!("\n泛型测试-----------------------------------------------");
+    // println!("\n泛型测试-----------------------------------------------");
     // println!("泛型的最大值: {}",get_max(&[1,2,3,4]));
+
 
     println!("练习结束-----------------------------------------------");
 }
