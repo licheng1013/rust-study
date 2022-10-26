@@ -13,21 +13,8 @@ use std::path::Path;
 /// 其他demo
 pub fn test_study() {
     println!("开始练习-----------------------------------------------");
-    println!("list-----------------------------------------------");
-    // 列表
-    let mut v: Vec<i32> = Vec::new();
-    v.push(1);
-    v.push(2);
-    println!("{}", v[0]);
-
-    // map
-    println!("\nmap-----------------------------------------------");
-    let mut scores = HashMap::new();
-    scores.insert("Blue".to_string(), 10);
-    scores.insert("Yellow".to_string(), 50);
-    let score = scores.get(&String::from("Blue"));
-    println!("{:?}", score);
-    println!("字符串转换: {}", stringify!(123));
+    list();
+    map();
 
     // 所有权
     println!("\n所有权-----------------------------------------------");
@@ -68,6 +55,28 @@ pub fn test_study() {
     println!("练习结束-----------------------------------------------");
 }
 
+/// 列表
+fn list() {
+    println!("list-----------------------------------------------");
+    // 列表
+    let mut v: Vec<i32> = Vec::new();
+    v.push(1);
+    v.push(2); //增加
+    v.remove(1);//删除
+    v.insert(v.len(), 3);
+    println!("获取: {:?},长度: {:?},列表: {:?}", v.get(0), v.len(), v);
+}
+
+fn map() {
+    // map
+    println!("\nmap-----------------------------------------------");
+    let mut map = HashMap::new();
+    map.insert("Blue".to_string(), 10);//插入
+    map.insert("Yellow".to_string(), 50);//插入
+    map.insert("Blue".to_string(), 30);//替换
+    map.remove("Yellow");
+    println!("获取: {:?},map: {:?}", map.get(&String::from("Blue")), map);
+}
 
 /// 所有权测试
 fn ownership(s: &String) -> usize {
@@ -146,8 +155,6 @@ fn read_file_test() {
     println!("文件的存在与否需要通过: is_file来进行判断");
     println!("是文件: {},是目录: {}", path.is_file(), path.is_dir());
     println!("文件名: {:#?}", path.file_name())
-
-
 }
 
 // 获取最大数测试失败！
