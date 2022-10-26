@@ -1,3 +1,13 @@
+extern crate core;
+
+use actix_web::{App, get, HttpServer, post, web};
+use actix_web::dev::Service;
+use actix_web::http::StatusCode;
+use actix_web::middleware::{ErrorHandlers, Logger};
+use futures::future::FutureExt;
+
+use crate::middleware::error::add_error_header;
+
 // fn main() {
 //     println!("Hello, world!");
 // }
@@ -7,14 +17,6 @@ mod middleware;
 mod service;
 mod test;
 mod util;
-
-use crate::middleware::error::add_error_header;
-use actix_web::http::StatusCode;
-use actix_web::middleware::{ErrorHandlers, Logger};
-use actix_web::{get, post, web, App, HttpServer};
-
-use futures::future::FutureExt;
-use actix_web::dev::Service;
 
 #[actix_web::main]
 async fn main() -> std::io::Result<()> {
