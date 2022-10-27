@@ -23,8 +23,13 @@ async fn main() -> std::io::Result<()> {
     let port = 8080;
     println!("http://localhost:{}", port);
 
-    HttpServer::new(|| {
+    // redis连接
+    let redis = redis::Client::open("redis://192.168.101.11:6379").unwrap();
+
+
+    HttpServer::new(move || {
         App::new()
+            .app_data(web::Data::new(redis.clone()))
             .wrap(Logger::default())
             .wrap(actix_web::middleware::DefaultHeaders::new())
             .wrap(ErrorHandlers::new().handler(StatusCode::OK, add_error_header))
@@ -44,11 +49,15 @@ async fn main() -> std::io::Result<()> {
                     .service(api::test::test2)
                     .service(api::test::test3)
                     .service(api::test::test4)
-                    .service(api::test::file)
-                ,
+                    .service(api::test::file),
+            )
+            .service(
+                web::scope("/redis")
+                    .service(api::redis::cache_stuff)
+                    .service(api::redis::del_stuff),
             )
     })
-    .bind(("0.0.0.0", port))?
-    .run()
-    .await
+        .bind(("0.0.0.0", port))?
+        .run()
+        .await
 }

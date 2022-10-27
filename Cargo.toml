@@ -18,3 +18,13 @@ actix-multipart = "0.4" #文件上传依赖
 sanitize-filename = "0.4" #文件名清理
 uuid = { version = "1", features = ["v4"] } #uuid
 #end
+
+# 优雅停机-未调试好-start
+parking_lot = "0.12"
+# end
+
+
+# redis-start
+redis = { version = "0.22", default-features = false, features = ["tokio-comp", "connection-manager"] }
+# end
+
