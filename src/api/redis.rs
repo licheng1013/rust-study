@@ -4,13 +4,12 @@ use actix_web::web::{Json, Path};
 use crate::util::r::ok_msg;
 
 #[get("set/{path}")]
-pub async fn cache_stuff(path:Path<String>, redis: web::Data<redis::Client>, )
-    -> actix_web::Result<impl Responder> {
-
+pub async fn cache_stuff(path: Path<String>, redis: web::Data<redis::Client>)
+                         -> actix_web::Result<impl Responder> {
     let mut conn = redis.get_tokio_connection_manager().await
         .map_err(error::ErrorInternalServerError)?;
 
-    let res = redis::Cmd::set("K",path.into_inner()).query_async::<_, String>(&mut conn)
+    let res = redis::Cmd::set("K", path.into_inner()).query_async::<_, String>(&mut conn)
         .await
         .map_err(error::ErrorInternalServerError)?;
 
@@ -21,6 +20,20 @@ pub async fn cache_stuff(path:Path<String>, redis: web::Data<redis::Client>, )
         Ok(HttpResponse::InternalServerError().finish())
     }
 }
+
+
+#[get("get/{path}")]
+pub async fn get(path: Path<String>, redis: web::Data<redis::Client>)
+                 -> actix_web::Result<impl Responder> {
+    let mut conn = redis.get_tokio_connection_manager().await
+        .map_err(error::ErrorInternalServerError)?;
+
+    let res = redis::Cmd::get(path.into_inner().to_string()).query_async::<_, String>(&mut conn)
+        .await.map_err(error::ErrorInternalServerError)?;
+
+    Ok(Json(ok_msg(res.to_string())))
+}
+
 
 #[get("del")]
 pub async fn del_stuff(redis: web::Data<redis::Client>) -> actix_web::Result<impl Responder> {

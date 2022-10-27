@@ -45,6 +45,7 @@ async fn main() -> std::io::Result<()> {
             .service(
                 web::scope("/redis")
                     .service(api::redis::cache_stuff)
+                    .service(api::redis::get)
                     .service(api::redis::del_stuff),
             )
     })
