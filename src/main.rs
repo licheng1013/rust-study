@@ -1,10 +1,8 @@
 extern crate core;
 
 use actix_web::{App, get, HttpServer, post, web};
-use actix_web::dev::Service;
 use actix_web::http::StatusCode;
 use actix_web::middleware::{ErrorHandlers, Logger};
-use futures::future::FutureExt;
 
 use crate::middleware::error::add_error_header;
 
@@ -27,18 +25,11 @@ async fn main() -> std::io::Result<()> {
 
     HttpServer::new(|| {
         App::new()
-            .wrap_fn(|req, srv| {
-                println!("Hi from start. You requested: {}", req.path());
-                srv.call(req).map(|res| {
-                    println!("Hi from response");
-                    res
-                })
-            })
-
             .wrap(Logger::default())
             .wrap(actix_web::middleware::DefaultHeaders::new())
-
             .wrap(ErrorHandlers::new().handler(StatusCode::OK, add_error_header))
+            .wrap(middleware::auth::Auth)
+
             .service(api::index::hello)
             .service(api::index::echo)
             .service(
