@@ -7,11 +7,12 @@
 //     //USER_ROUTER.get(login)
 // }
 
+use actix_web::{Responder, Result};
+use actix_web::web::{Json, Path, Query};
+
+use crate::{get, post};
 use crate::entity::user::User;
 use crate::util::r;
-use crate::{get, post};
-use actix_web::web::{Json, Path, Query};
-use actix_web::{Responder, Result};
 
 /// 登入接口
 #[get("/login")]
@@ -33,9 +34,9 @@ pub async fn one(id: Path<i64>) -> Result<impl Responder> {
 
 /// 列表
 #[get("/list")]
-pub async fn list(user: Query<User>) -> Result<impl Responder> {
-    let result = r::ok_data(user.into_inner());
-    Ok(Json(result))
+pub async fn list( user: Query<User>) -> Result<impl Responder> {
+    println!("收到数据: {:#?}",user);
+    Ok(Json(r::ok_data(user.into_inner())))
 }
 
 /// 修改
