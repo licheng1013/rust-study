@@ -12,6 +12,8 @@ serde = { version = "1.0", features = ["derive"] } #序列化
 serde_json = "1" #json
 futures = "0.3"
 
+# 文件上传所需要的依赖-start
 actix-multipart = "0.4" #文件上传依赖
 sanitize-filename = "0.4" #文件名清理
 uuid = { version = "1", features = ["v4"] } #uuid
+#end
