@@ -1,4 +1,4 @@
-use chrono::NaiveDate;
+use chrono::Local;
 use sea_orm::entity::prelude::*;
 use sea_orm::Set;
 use serde::{Deserialize, Serialize};
@@ -30,10 +30,12 @@ impl TestDao {
     pub async fn create_post(
         db: &DbConn,
     ) -> Result<ActiveModel, DbErr> {
+        let time = Local::now();
+
         ActiveModel {
             name: Set("你好".to_string()),
             version: Set(1),
-            create_time: Set(NaiveDate::from_ymd(2016, 7, 8).and_hms(9, 10, 11)),
+            create_time: Set( time.naive_local()),
             ..Default::default()
         }
             .save(db)
