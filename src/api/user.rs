@@ -7,12 +7,21 @@
 //     //USER_ROUTER.get(login)
 // }
 
-use actix_web::{Responder, Result};
+use actix_web::{Responder, Result, web};
 use actix_web::web::{Json, Path, Query};
 
 use crate::{get, post};
 use crate::entity::user::User;
 use crate::util::r;
+
+pub fn user_api(cfg: &mut web::ServiceConfig) {
+    cfg.service(web::scope("/user")
+            .service(login)
+            .service(one)
+            .service(list),
+    );
+}
+
 
 /// 登入接口
 #[get("/login")]

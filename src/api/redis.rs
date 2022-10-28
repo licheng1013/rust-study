@@ -3,6 +3,15 @@ use actix_web::web::{Json, Path};
 
 use crate::util::r::{fail, ok_msg};
 
+pub fn redis_api(cfg: &mut web::ServiceConfig) {
+    cfg.service(web::scope("/redis")
+                    .service(set)
+                    .service(get)
+                    .service(del),
+    );
+}
+
+
 #[get("set/{path}")]
 pub async fn set(path: Path<String>, redis: web::Data<redis::Client>)
                  -> actix_web::Result<impl Responder> {

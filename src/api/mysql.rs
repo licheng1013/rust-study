@@ -5,6 +5,16 @@ use sea_orm::DatabaseConnection;
 use crate::entity::test::TestDao;
 use crate::util::r;
 
+pub fn mysql_api(cfg: &mut web::ServiceConfig) {
+    cfg.service(
+        web::scope("/mysql")
+        .service(list)
+        .service(delete)
+        .service(create)
+        .service(update)
+    );
+}
+
 /// 列表
 #[get("/list")]
 pub async fn list( mysql: web::Data<DatabaseConnection>) -> Result<impl Responder> {

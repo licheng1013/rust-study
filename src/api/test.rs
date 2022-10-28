@@ -12,6 +12,17 @@ use uuid::Uuid;
 use crate::service::user::UserService;
 use crate::util::r;
 
+pub fn test_api(cfg: &mut web::ServiceConfig) {
+    cfg.service(web::scope("/test")
+                    .service(test1)
+                    .service(test2)
+                    .service(test3)
+                    .service(test4)
+                    .service(file),
+    );
+}
+
+
 /// 测试错误返回
 #[get("/1")]
 pub async fn test1() -> Result<impl Responder> {

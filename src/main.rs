@@ -33,34 +33,11 @@ async fn main() -> std::io::Result<()> {
 
             .service(api::index::hello)
             .service(api::index::echo)
-            .service(
-                web::scope("/user")
-                    .service(api::user::login)
-                    .service(api::user::one)
-                    .service(api::user::list),
-            )
-            .service(
-                web::scope("/test")
-                    .service(api::test::test1)
-                    .service(api::test::test2)
-                    .service(api::test::test3)
-                    .service(api::test::test4)
-                    .service(api::test::file),
-            )
-            .service(
-                web::scope("/redis")
-                    .service(api::redis::set)
-                    .service(api::redis::get)
-                    .service(api::redis::del),
-            )
-            .service(
-                web::scope("/mysql")
-                    .service(api::mysql::list)
-                    .service(api::mysql::delete)
-                    .service(api::mysql::create)
-                    .service(api::mysql::update)
+            .configure(api::user::user_api)
+            .configure(api::test::test_api)
+            .configure(api::redis::redis_api)
+            .configure(api::mysql::mysql_api)
 
-            )
     })
         .bind(("0.0.0.0", port))?
         .run()
