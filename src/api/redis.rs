@@ -28,11 +28,18 @@ pub async fn get(path: Path<String>, redis: web::Data<redis::Client>)
     let mut conn = redis.get_tokio_connection_manager().await
         .map_err(error::ErrorInternalServerError)?;
 
-    println!("key: {:?}",path);
-    let res = redis::Cmd::get(path.into_inner()).query_async::<_, String>(&mut conn)
-        .await.map_err(error::ErrorInternalServerError)?;
+    println!("key: {:?}", path);
+    let res = redis::Cmd::get(path.into_inner()) //.query_async::<_, String>(&mut conn).await;
+        .query_async(&mut conn).await;
 
-    Ok(Json(ok_msg(res.to_string())))
+    match res {
+        Ok(ok) => Ok(Json(ok_msg(ok))),
+        Err(err) => {
+            println!("未找到数据!: {:?}", err);
+            Ok(Json(ok_msg(err.to_string())))
+        }
+    }
+    // Ok(Json(ok_msg(ok)))
 }
 
 
