@@ -56,6 +56,7 @@ async fn main() -> std::io::Result<()> {
             .service(
                 web::scope("/mysql")
                     .service(api::mysql::list)
+                    .service(api::mysql::delete)
 
             )
     })

@@ -1,9 +1,9 @@
 use chrono::Local;
+use sea_orm::{DeleteResult, Set};
 use sea_orm::entity::prelude::*;
-use sea_orm::Set;
 use serde::{Deserialize, Serialize};
 
-#[derive(Clone, Debug, PartialEq, DeriveEntityModel, Deserialize, Serialize,Default)]
+#[derive(Clone, Debug, PartialEq, DeriveEntityModel, Deserialize, Serialize, Default)]
 #[sea_orm(table_name = "t_test")]
 pub struct Model {
     #[sea_orm(primary_key)]
@@ -35,10 +35,33 @@ impl TestDao {
         ActiveModel {
             name: Set("你好".to_string()),
             version: Set(1),
-            create_time: Set( time.naive_local()),
+            create_time: Set(time.naive_local()),
             ..Default::default()
         }
             .save(db)
             .await
+    }
+
+    // pub async fn list(db: &DbConn) -> Result<ActiveModel, DbErr> {
+    //     ActiveModel {}
+    //         .find()
+    //         .await
+    // }
+    //
+    // pub async fn update(db: &DbConn) -> Result<ActiveModel, DbErr> {
+    //     ActiveModel {}
+    //         .find()
+    //         .await
+    // }
+
+    pub async fn delete(id: i32, db: &DbConn) -> Result<DeleteResult, DbErr> {
+        //ActiveModel::find();
+        let del:ActiveModel = Entity::find_by_id(id)
+            .one(db)
+            .await?
+            .ok_or(DbErr::Custom("找不到数据！.".to_owned()))
+            .map(Into::into)?;
+
+        del.delete(db).await
     }
 }
