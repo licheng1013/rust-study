@@ -4,8 +4,8 @@ use actix_web::web::{Json, Path};
 use crate::util::r::ok_msg;
 
 #[get("set/{path}")]
-pub async fn cache_stuff(path: Path<String>, redis: web::Data<redis::Client>)
-                         -> actix_web::Result<impl Responder> {
+pub async fn set(path: Path<String>, redis: web::Data<redis::Client>)
+                 -> actix_web::Result<impl Responder> {
     let mut conn = redis.get_tokio_connection_manager().await
         .map_err(error::ErrorInternalServerError)?;
 
@@ -36,7 +36,7 @@ pub async fn get(path: Path<String>, redis: web::Data<redis::Client>)
 
 
 #[get("del")]
-pub async fn del_stuff(redis: web::Data<redis::Client>) -> actix_web::Result<impl Responder> {
+pub async fn del(redis: web::Data<redis::Client>) -> actix_web::Result<impl Responder> {
     let mut conn = redis
         .get_tokio_connection_manager()
         .await
