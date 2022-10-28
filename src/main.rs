@@ -21,10 +21,9 @@ async fn main() -> std::io::Result<()> {
 
     let redis = redis::Client::open("redis://:root@192.168.101.11:6379").unwrap();
 
-    let db_url = "mysql://root:root@92.168.101.11:3306/t_ldx";
+    let db_url = "mysql://root:root@192.168.101.11:3306/t_ldx";
     let options = ConnectOptions::new(db_url.to_string());
     let conn = sea_orm::Database::connect(options).await.unwrap();
-
 
     HttpServer::new(move || {
         App::new()
