@@ -53,6 +53,11 @@ async fn main() -> std::io::Result<()> {
                     .service(api::redis::get)
                     .service(api::redis::del),
             )
+            .service(
+                web::scope("/mysql")
+                    .service(api::mysql::list)
+
+            )
     })
         .bind(("0.0.0.0", port))?
         .run()

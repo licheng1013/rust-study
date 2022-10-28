@@ -30,4 +30,5 @@ redis = { version = "0.22", default-features = false, features = ["tokio-comp", 
 
 
 # 数据库
+chrono = "0.4"
 sea-orm = { version = "0.9.3",features = [ "sqlx-mysql", "runtime-actix-native-tls", "macros" ] }
