@@ -28,3 +28,6 @@ parking_lot = "0.12"
 redis = { version = "0.22", default-features = false, features = ["tokio-comp", "connection-manager"] }
 # end
 
+
+# 数据库
+sea-orm = { version = "0.9.3",features = [ "sqlx-mysql", "runtime-actix-native-tls", "macros" ] }

@@ -1,6 +1,7 @@
 extern crate core;
 
 use actix_web::{App, get, HttpServer, post, web};
+use sea_orm::ConnectOptions;
 
 // fn main() {
 //     println!("Hello, world!");
@@ -18,12 +19,17 @@ async fn main() -> std::io::Result<()> {
     let port = 8080;
     println!("http://localhost:{}", port);
 
-
     let redis = redis::Client::open("redis://:root@192.168.101.11:6379").unwrap();
+
+    let db_url = "mysql://root:root@92.168.101.11:3306/t_ldx";
+    let options = ConnectOptions::new(db_url.to_string());
+    let conn = sea_orm::Database::connect(options).await.unwrap();
+
 
     HttpServer::new(move || {
         App::new()
-            .app_data(web::Data::new(redis.clone()))
+            .app_data(web::Data::new(conn.clone())) //mysql
+            .app_data(web::Data::new(redis.clone()))//redis
             .wrap(middleware::auth::Auth)
 
             .service(api::index::hello)
