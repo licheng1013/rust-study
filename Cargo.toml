@@ -22,14 +22,16 @@ uuid = { version = "1", features = ["v4"] } #uuid
 
 # 优雅停机-start  -> 未使用
 parking_lot = "0.12"
-# end
 
 
-# redis-start
+# redis
 redis = { version = "0.22", default-features = false, features = ["tokio-comp", "connection-manager"] }
-# end
 
 
 # 数据库
 chrono = "0.4" #时间字段处理，如果没有存储时间等要求可以不用引入
 sea-orm = { version = "0.9.3",features = [ "sqlx-mysql", "runtime-actix-native-tls", "macros" ] }
+
+
+# 跨域
+actix-cors = "0.6"

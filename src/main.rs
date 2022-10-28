@@ -1,6 +1,8 @@
 extern crate core;
 
+use actix_cors::Cors;
 use actix_web::{App, get, HttpServer, post, web};
+use actix_web::http::header;
 use sea_orm::ConnectOptions;
 
 // fn main() {
@@ -27,6 +29,15 @@ async fn main() -> std::io::Result<()> {
 
     HttpServer::new(move || {
         App::new()
+            .wrap(
+                Cors::default()
+                    .allowed_origin("send_wildcard")
+                    .allowed_methods(vec!["GET", "POST"])
+                    .allowed_headers(vec![header::AUTHORIZATION, header::ACCEPT])
+                    .allowed_header(header::CONTENT_TYPE)
+                    .supports_credentials()
+                    .max_age(3600),
+            )
             .app_data(web::Data::new(conn.clone())) //mysql
             .app_data(web::Data::new(redis.clone()))//redis
             .wrap(middleware::auth::Auth)
