@@ -27,7 +27,7 @@ impl ActiveModelBehavior for ActiveModel {}
 pub struct TestDao;
 
 impl TestDao {
-    pub async fn create_post(
+    pub async fn create(
         db: &DbConn,
     ) -> Result<ActiveModel, DbErr> {
         let time = Local::now();
@@ -42,21 +42,30 @@ impl TestDao {
             .await
     }
 
-    // pub async fn list(db: &DbConn) -> Result<ActiveModel, DbErr> {
-    //     ActiveModel {}
-    //         .find()
-    //         .await
-    // }
-    //
-    // pub async fn update(db: &DbConn) -> Result<ActiveModel, DbErr> {
-    //     ActiveModel {}
-    //         .find()
-    //         .await
-    // }
+    pub async fn list(db: &DbConn) -> Result<Vec<Model>, DbErr> {
+        let chocolate: Vec<Model> = Entity::find()
+            .all(db)
+            .await?;
+        return Ok(chocolate);
+    }
+
+    pub async fn update(id: i32, db: &DbConn) -> Result<Model, DbErr> {
+        let update: ActiveModel = Entity::find_by_id(id)
+            .one(db)
+            .await?
+            .ok_or(DbErr::Custom("查询不到对象！".to_owned()))
+            .map(Into::into)?;
+
+        ActiveModel {
+            id: update.id,
+            name: Set("修改数据示例".to_string()),
+            ..Default::default()
+        }.update(db).await
+    }
 
     pub async fn delete(id: i32, db: &DbConn) -> Result<DeleteResult, DbErr> {
         // Entity 是红色的不要紧，2022/10/28 因为这是黑魔法。很夸张！
-        let del:ActiveModel = Entity::find_by_id(id)
+        let del: ActiveModel = Entity::find_by_id(id)
             .one(db)
             .await?
             .ok_or(DbErr::Custom("找不到数据！.".to_owned()))
