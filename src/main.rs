@@ -17,6 +17,7 @@ mod util;
 
 #[actix_web::main]
 async fn main() -> std::io::Result<()> {
+    util::token::test();
     test::test::test_study();
     let port = 8080;
     println!("http://localhost:{}", port);

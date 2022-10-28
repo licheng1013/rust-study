@@ -35,3 +35,6 @@ sea-orm = { version = "0.9.3",features = [ "sqlx-mysql", "runtime-actix-native-t
 
 # 跨域
 actix-cors = "0.6"
+
+# Jwt
+jsonwebtoken = "8"
