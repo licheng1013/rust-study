@@ -1,7 +1,7 @@
-use actix_web::{error, get, HttpResponse, Responder, web};
+use actix_web::{error, get, Responder, web};
 use actix_web::web::{Json, Path};
 
-use crate::util::r::ok_msg;
+use crate::util::r::{fail, ok_msg};
 
 #[get("set/{path}")]
 pub async fn set(path: Path<String>, redis: web::Data<redis::Client>)
@@ -15,9 +15,9 @@ pub async fn set(path: Path<String>, redis: web::Data<redis::Client>)
 
     // 不是绝对必要的，但成功的 SET 操作会返回“OK”
     if res == "OK" {
-        Ok(HttpResponse::Ok().body("successfully cached values"))
+        Ok(Json(ok_msg("插入成功".to_string())))
     } else {
-        Ok(HttpResponse::InternalServerError().finish())
+        Ok(Json(fail("插入失败".to_string())))
     }
 }
 
@@ -28,7 +28,8 @@ pub async fn get(path: Path<String>, redis: web::Data<redis::Client>)
     let mut conn = redis.get_tokio_connection_manager().await
         .map_err(error::ErrorInternalServerError)?;
 
-    let res = redis::Cmd::get(path.into_inner().to_string()).query_async::<_, String>(&mut conn)
+    println!("key: {:?}",path);
+    let res = redis::Cmd::get(path.into_inner()).query_async::<_, String>(&mut conn)
         .await.map_err(error::ErrorInternalServerError)?;
 
     Ok(Json(ok_msg(res.to_string())))
