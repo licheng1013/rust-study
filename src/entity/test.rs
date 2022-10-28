@@ -55,7 +55,7 @@ impl TestDao {
     // }
 
     pub async fn delete(id: i32, db: &DbConn) -> Result<DeleteResult, DbErr> {
-        //ActiveModel::find();
+        // Entity 是红色的不要紧，2022/10/28 因为这是黑魔法。很夸张！
         let del:ActiveModel = Entity::find_by_id(id)
             .one(db)
             .await?
