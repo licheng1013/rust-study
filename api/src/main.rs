@@ -1,8 +1,6 @@
 extern crate core;
 
-use actix_cors::Cors;
 use actix_web::{App, get, HttpServer, post, web};
-use actix_web::http::header;
 use sea_orm::ConnectOptions;
 
 use crate::config::config::cors;

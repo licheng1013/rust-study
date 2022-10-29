@@ -1,0 +1,40 @@
+[package]
+name = "api"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+actix-web = "4" #web框架
+futures = "0.3" #异步代码
+futures-util = { version = "0.3.17", default-features = false, features = ["std"] } #异步工具
+
+env_logger = "0.7" #日志
+serde = { version = "1.0", features = ["derive"] } #序列化
+serde_json = "1" #json
+
+# 文件上传所需要的依赖-start
+actix-multipart = "0.4" #文件上传依赖
+sanitize-filename = "0.4" #文件名清理
+uuid = { version = "1", features = ["v4"] } #uuid
+#end
+
+# 优雅停机-start  -> 未使用
+parking_lot = "0.12"
+
+
+# redis
+redis = { version = "0.22", default-features = false, features = ["tokio-comp", "connection-manager"] }
+
+
+# 数据库
+chrono = "0.4" #时间字段处理，如果没有存储时间等要求可以不用引入
+sea-orm = { version = "0.9.3",features = [ "sqlx-mysql", "runtime-actix-native-tls", "macros" ] }
+
+
+# 跨域
+actix-cors = "0.6"
+
+# Jwt
+jsonwebtoken = "8"

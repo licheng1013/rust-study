@@ -1,7 +1,8 @@
-use crate::util::r::ok_msg;
-use crate::{get, post};
-use actix_web::web::Json;
 use actix_web::{Responder, Result};
+use actix_web::web::Json;
+
+use crate::{get, post};
+use crate::util::r::ok_msg;
 
 #[get("/")]
 pub async fn hello() -> Result<impl Responder> {
