@@ -15,9 +15,13 @@ pub fn fun_test3(a: Box<i32>, b: Box<i32>, f: Box<dyn FnOnce(i32, i32) -> i32>) 
     f(*a, *b)
 }
 
-/// 不可变闭包示例 -> 如果在 “不可变闭包” 中修改其他可变变量会导致错误。
+/// 不可变闭包示例 -> 使用场景: 不希望能使用外部的值,通常用于扩展规则,例如解码器...
 pub fn test1() {
+    //  如果在 “不可变闭包” 中修改其他可变变量会导致错误,-> 例如这下面两行注释的代码，如果开启就会出现错误
+
+    //let mut str = "Hello ".to_string();
     let v = |a: i32, b: i32| -> i32{
+        //str += " World";
         a + b
     };
     let result = fun_test1(5, 5, &v);
@@ -25,7 +29,7 @@ pub fn test1() {
 }
 
 
-/// 可变闭包示例
+/// 可变闭包示例 -> 使用场景: 用于匿名方法使用,可在匿名方法修改外部的变量值
 pub fn test2() {
     let mut str = "Hello ".to_string();
     let mut v = |a: i32, b: i32| -> i32{
@@ -36,7 +40,7 @@ pub fn test2() {
     println!("可变闭包结果: {},修改外部数据: {}", result, str);
 }
 
-/// 所有权移动
+/// 所有权移动 -> 使用场景: 上层传入的变量不希望传递函数后，还能在使用。
 pub fn test3() {
     let a = Box::new(10);
     let b = Box::new(10);
