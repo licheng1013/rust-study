@@ -5,6 +5,8 @@ use actix_web::{App, get, HttpServer, post, web};
 use actix_web::http::header;
 use sea_orm::ConnectOptions;
 
+use crate::config::config::cors;
+
 // fn main() {
 //     println!("Hello, world!");
 // }
@@ -14,6 +16,7 @@ mod middleware;
 mod service;
 mod test;
 mod util;
+mod config;
 
 #[actix_web::main]
 async fn main() -> std::io::Result<()> {
@@ -30,15 +33,7 @@ async fn main() -> std::io::Result<()> {
 
     HttpServer::new(move || {
         App::new()
-            .wrap(
-                Cors::default()
-                    .allowed_origin("send_wildcard")
-                    .allowed_methods(vec!["GET", "POST"])
-                    .allowed_headers(vec![header::AUTHORIZATION, header::ACCEPT])
-                    .allowed_header(header::CONTENT_TYPE)
-                    .supports_credentials()
-                    .max_age(3600),
-            )
+            .wrap(cors())
             .app_data(web::Data::new(conn.clone())) //mysql
             .app_data(web::Data::new(redis.clone()))//redis
             .wrap(middleware::auth::Auth)
@@ -49,7 +44,6 @@ async fn main() -> std::io::Result<()> {
             .configure(api::test::test_api)
             .configure(api::redis::redis_api)
             .configure(api::mysql::mysql_api)
-
     })
         .bind(("0.0.0.0", port))?
         .run()
