@@ -1,4 +1,4 @@
-// 面向对象设计 -> 多态
+// 面向对象设计 -> 多态 -> 泛型
 
 pub trait Animal {
     fn print(&self);
