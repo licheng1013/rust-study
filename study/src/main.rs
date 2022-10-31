@@ -6,8 +6,10 @@ mod test;
 mod thread;
 mod socket;
 mod macro_demo;
+mod async_test;
 
-fn main() {
+#[tokio::main]
+async fn main() {
     test::test_study();
     println!("闭包-------------------------------------------------------------------------");
     test1();
@@ -23,5 +25,7 @@ fn main() {
     interface::test1();
     println!("宏-------------------------------------------------------------------------");
     macro_demo::macro_test();
+    println!("异步-------------------------------------------------------------------------");
+    async_test::test1().await;
 
 }
