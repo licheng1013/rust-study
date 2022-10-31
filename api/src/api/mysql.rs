@@ -1,7 +1,8 @@
 use actix_web::{get, Responder, Result, web};
-use actix_web::web::{Json, Path};
+use actix_web::web::{Json, Path, Query};
 use sea_orm::DatabaseConnection;
 
+use crate::entity::page::Page;
 use crate::entity::test::TestDao;
 use crate::util::r;
 
@@ -17,8 +18,8 @@ pub fn mysql_api(cfg: &mut web::ServiceConfig) {
 
 /// 列表
 #[get("/list")]
-pub async fn list(mysql: web::Data<DatabaseConnection>) -> Result<impl Responder> {
-    let test_dao = TestDao::list(&mysql).await.unwrap();
+pub async fn list( page: Query<Page> ,mysql: web::Data<DatabaseConnection>) -> Result<impl Responder> {
+    let test_dao = TestDao::list(page.into_inner(),&mysql).await.unwrap();
     Ok(Json(r::ok_data(test_dao)))
 }
 
