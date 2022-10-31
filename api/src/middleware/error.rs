@@ -11,10 +11,10 @@ pub struct ErrHandler;
 
 // 中间件工厂是来自 actix-service crate 的 `Transform` 特征 `S` - 下一个服务的类型 `B` - 响应主体的类型
 impl<S, B> Transform<S, ServiceRequest> for ErrHandler
-    where
-        S: Service<ServiceRequest, Response=ServiceResponse<B>, Error=Error>,
-        S::Future: 'static,
-        B: 'static,
+where
+    S: Service<ServiceRequest, Response = ServiceResponse<B>, Error = Error>,
+    S::Future: 'static,
+    B: 'static,
 {
     type Response = ServiceResponse<B>;
     type Error = Error;
@@ -31,9 +31,11 @@ pub struct SayHiMiddleware<S> {
     service: S,
 }
 
-impl<S, B> Service<ServiceRequest> for SayHiMiddleware<S> where
-    S: Service<ServiceRequest, Response=ServiceResponse<B>, Error=Error>,
-    S::Future: 'static, B: 'static,
+impl<S, B> Service<ServiceRequest> for SayHiMiddleware<S>
+where
+    S: Service<ServiceRequest, Response = ServiceResponse<B>, Error = Error>,
+    S::Future: 'static,
+    B: 'static,
 {
     type Response = ServiceResponse<B>;
     type Error = Error;

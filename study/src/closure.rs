@@ -20,7 +20,7 @@ pub fn test1() {
     //  如果在 “不可变闭包” 中修改其他可变变量会导致错误,-> 例如这下面两行注释的代码，如果开启就会出现错误
 
     //let mut str = "Hello ".to_string();
-    let v = |a: i32, b: i32| -> i32{
+    let v = |a: i32, b: i32| -> i32 {
         //str += " World";
         a + b
     };
@@ -28,11 +28,10 @@ pub fn test1() {
     println!("不可变闭包结果: {}", result);
 }
 
-
 /// 可变闭包示例 -> 使用场景: 用于匿名方法使用,可在匿名方法修改外部的变量值
 pub fn test2() {
     let mut str = "Hello ".to_string();
-    let mut v = |a: i32, b: i32| -> i32{
+    let mut v = |a: i32, b: i32| -> i32 {
         str += " World";
         a + b
     };
@@ -45,11 +44,11 @@ pub fn test3() {
     let a = Box::new(10);
     let b = Box::new(10);
 
-    let v = Box::new(|a: i32, b: i32| -> i32{
+    let v = Box::new(|a: i32, b: i32| -> i32 {
         return a + b;
     });
     let result = fun_test3(a, b, v);
 
     println!("转移所有权闭包结果: {}", result);
-   // println!("变量打印: {:?}-{:?}", a, b) // 这里取消注释运行会出错误，因为a，b已经被的所有权已经被转移了
+    // println!("变量打印: {:?}-{:?}", a, b) // 这里取消注释运行会出错误，因为a，b已经被的所有权已经被转移了
 }

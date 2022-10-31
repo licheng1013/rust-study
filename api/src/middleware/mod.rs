@@ -1,3 +1,3 @@
-pub mod error;
-pub mod custom;
 pub mod auth;
+pub mod custom;
+pub mod error;

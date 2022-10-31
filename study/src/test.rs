@@ -3,8 +3,6 @@
 //     V1,
 //     V2,
 // }
-
-
 use std::collections::HashMap;
 use std::fs::File;
 use std::io::{ErrorKind, Read, Write};
@@ -38,19 +36,20 @@ pub fn test_study() {
     dbg!(&user);
     println!("结构体方法{}", user.get_username_and_password());
 
-
     println!("\n枚举-----------------------------------------------");
     println!("枚举对象: {:?}", Type::MONKEY);
     println!("枚举对象: {:?}", Type::CAT);
-    println!("枚举对比: {:?},{:?}", Type::CAT == Type::CAT, Type::MONKEY == Type::CAT);
+    println!(
+        "枚举对比: {:?},{:?}",
+        Type::CAT == Type::CAT,
+        Type::MONKEY == Type::CAT
+    );
     println!("枚举方法: {:?}", get_type(Type::CAT));
-
 
     println!("\n文件读取-----------------------------------------------");
     read_file_test();
     // println!("\n泛型测试-----------------------------------------------");
     // println!("泛型的最大值: {}",get_max(&[1,2,3,4]));
-
 
     println!("练习结束-----------------------------------------------");
 }
@@ -62,7 +61,7 @@ fn list() {
     let mut v: Vec<i32> = Vec::new();
     v.push(1);
     v.push(2); //增加
-    v.remove(1);//删除
+    v.remove(1); //删除
     v.insert(v.len(), 3);
     println!("获取: {:?},长度: {:?},列表: {:?}", v.get(0), v.len(), v);
 }
@@ -71,9 +70,9 @@ fn map() {
     // map
     println!("\nmap-----------------------------------------------");
     let mut map = HashMap::new();
-    map.insert("Blue".to_string(), 10);//插入
-    map.insert("Yellow".to_string(), 50);//插入
-    map.insert("Blue".to_string(), 30);//替换
+    map.insert("Blue".to_string(), 10); //插入
+    map.insert("Yellow".to_string(), 50); //插入
+    map.insert("Blue".to_string(), 30); //替换
     map.remove("Yellow");
     println!("获取: {:?},map: {:?}", map.get(&String::from("Blue")), map);
 }
@@ -105,8 +104,7 @@ impl User {
 }
 
 /// 开启打印
-#[derive(Debug)]
-#[derive(PartialEq)]
+#[derive(Debug, PartialEq)]
 enum Type {
     CAT,
     MONKEY,
@@ -138,7 +136,7 @@ fn read_file_test() {
             err => {
                 panic!("Problem opening the file: {:?}", err)
             }
-        }
+        },
     };
 
     let _result = f.write("HelloWorld".as_ref());

@@ -15,13 +15,13 @@ use crate::entity::user::User;
 use crate::util::r;
 
 pub fn user_api(cfg: &mut web::ServiceConfig) {
-    cfg.service(web::scope("/user")
+    cfg.service(
+        web::scope("/user")
             .service(login)
             .service(one)
             .service(list),
     );
 }
-
 
 /// 登入接口
 #[get("/login")]
@@ -43,8 +43,8 @@ pub async fn one(id: Path<i64>) -> Result<impl Responder> {
 
 /// 列表
 #[get("/list")]
-pub async fn list( user: Query<User>) -> Result<impl Responder> {
-    println!("收到数据: {:#?}",user);
+pub async fn list(user: Query<User>) -> Result<impl Responder> {
+    println!("收到数据: {:#?}", user);
     Ok(Json(r::ok_data(user.into_inner())))
 }
 

@@ -44,3 +44,10 @@
 - 请在Linux上打包问题少。
 - 默认打包本平台: cargo build --release
 - cargo build --release --target=x86_64-unknown-linux-musl
+
+
+### 切换环境
+- 切换到尝新环境
+- rustup override set nightly
+- 切换到稳定环境
+- rustup override set stable

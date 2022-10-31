@@ -9,11 +9,11 @@ use crate::config::config::cors;
 //     println!("Hello, world!");
 // }
 mod api;
+mod config;
 mod entity;
 mod middleware;
 mod service;
 mod util;
-mod config;
 
 #[actix_web::main]
 async fn main() -> std::io::Result<()> {
@@ -31,9 +31,8 @@ async fn main() -> std::io::Result<()> {
         App::new()
             .wrap(cors())
             .app_data(web::Data::new(conn.clone())) //mysql
-            .app_data(web::Data::new(redis.clone()))//redis
+            .app_data(web::Data::new(redis.clone())) //redis
             .wrap(middleware::auth::Auth)
-
             .service(api::index::hello)
             .service(api::index::echo)
             .configure(api::user::user_api)
@@ -41,7 +40,7 @@ async fn main() -> std::io::Result<()> {
             .configure(api::redis::redis_api)
             .configure(api::mysql::mysql_api)
     })
-        .bind(("0.0.0.0", port))?
-        .run()
-        .await
+    .bind(("0.0.0.0", port))?
+    .run()
+    .await
 }

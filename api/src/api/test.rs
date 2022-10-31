@@ -4,8 +4,8 @@ use actix_multipart::Multipart;
 use actix_web::{HttpResponse, Responder, Result};
 use actix_web::get;
 use actix_web::post;
-use actix_web::web::{Json, Path};
 use actix_web::web;
+use actix_web::web::{Json, Path};
 use futures::TryStreamExt;
 use uuid::Uuid;
 
@@ -13,15 +13,15 @@ use crate::service::user::UserService;
 use crate::util::r;
 
 pub fn test_api(cfg: &mut web::ServiceConfig) {
-    cfg.service(web::scope("/test")
-                    .service(test1)
-                    .service(test2)
-                    .service(test3)
-                    .service(test4)
-                    .service(file),
+    cfg.service(
+        web::scope("/test")
+            .service(test1)
+            .service(test2)
+            .service(test3)
+            .service(test4)
+            .service(file),
     );
 }
-
 
 /// 测试错误返回
 #[get("/1")]
@@ -52,9 +52,10 @@ pub async fn test4(mut payload: Multipart) -> Result<impl Responder> {
         // 多部分表单数据流必须包含“内容处置”
         let content_disposition = field.content_disposition();
 
-        let filename = content_disposition.get_filename()
+        let filename = content_disposition
+            .get_filename()
             .map_or_else(|| Uuid::new_v4().to_string(), sanitize_filename::sanitize);
-        println!("文件名: {}",filename);
+        println!("文件名: {}", filename);
         let filepath = format!("./{filename}");
         // File::create 是阻塞操作，使用线程池
         let mut f = web::block(|| std::fs::File::create(filepath)).await??;

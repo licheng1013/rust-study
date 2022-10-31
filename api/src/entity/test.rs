@@ -23,13 +23,10 @@ pub enum Relation {}
 
 impl ActiveModelBehavior for ActiveModel {}
 
-
 pub struct TestDao;
 
 impl TestDao {
-    pub async fn create(
-        db: &DbConn,
-    ) -> Result<ActiveModel, DbErr> {
+    pub async fn create(db: &DbConn) -> Result<ActiveModel, DbErr> {
         let time = Local::now();
 
         ActiveModel {
@@ -38,14 +35,12 @@ impl TestDao {
             create_time: Set(time.naive_local()),
             ..Default::default()
         }
-            .save(db)
-            .await
+        .save(db)
+        .await
     }
 
     pub async fn list(db: &DbConn) -> Result<Vec<Model>, DbErr> {
-        let chocolate: Vec<Model> = Entity::find()
-            .all(db)
-            .await?;
+        let chocolate: Vec<Model> = Entity::find().all(db).await?;
         return Ok(chocolate);
     }
 
@@ -60,7 +55,9 @@ impl TestDao {
             id: update.id,
             name: Set("修改数据示例".to_string()),
             ..Default::default()
-        }.update(db).await
+        }
+        .update(db)
+        .await
     }
 
     pub async fn delete(id: i32, db: &DbConn) -> Result<DeleteResult, DbErr> {
