@@ -2,7 +2,6 @@ use crate::closure::{test1, test2, test3};
 
 mod closure;
 mod interface;
-mod socket;
 mod test;
 mod thread;
 
