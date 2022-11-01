@@ -73,14 +73,30 @@ impl TestDao {
             .await
     }
 
-    pub async fn delete(id: i32, db: &DbConn) -> Result<DeleteResult, DbErr> {
-        // Entity 是红色的不要紧，2022/10/28 因为这是黑魔法。很夸张！
-        let del: ActiveModel = Entity::find_by_id(id)
-            .one(db)
-            .await?
-            .ok_or(DbErr::Custom("找不到数据！.".to_owned()))
-            .map(Into::into)?;
+    pub async fn delete(ids: Vec<usize>, db: &DbConn) -> Result<String, DbErr> {
 
-        del.delete(db).await
+        let mut b = false;
+
+        for x in ids {
+            let res: DeleteResult = Entity::delete_by_id(x as i32).exec(db).await?;
+            if res.rows_affected != 1 {
+                b = true;
+                break
+            }
+        }
+        if b {
+            Err(DbErr::RecordNotFound("找不到数据！".to_string()))
+        }else{
+            Ok("删除成功！".to_string())
+        }
+
+        // Entity 是红色的不要紧，2022/10/28 因为这是黑魔法。很夸张！
+        // let del: ActiveModel = Entity::find_by_id(id)
+        //     .one(db)
+        //     .await?
+        //     .ok_or(DbErr::Custom("找不到数据！.".to_owned()))
+        //     .map(Into::into)?;
+        //
+        // del.delete(db).await
     }
 }
