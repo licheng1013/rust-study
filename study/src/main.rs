@@ -1,12 +1,12 @@
 use crate::closure::{test1, test2, test3};
 
+mod async_test;
 mod closure;
 mod interface;
+mod macro_demo;
+mod socket;
 mod test;
 mod thread;
-mod socket;
-mod macro_demo;
-mod async_test;
 
 #[tokio::main]
 async fn main() {
@@ -27,5 +27,4 @@ async fn main() {
     macro_demo::macro_test();
     println!("异步-------------------------------------------------------------------------");
     async_test::test1().await;
-
 }
