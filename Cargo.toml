@@ -3,4 +3,6 @@
 members = [
     "api",
     "study",
+    "server",
+    "client",
 ]
