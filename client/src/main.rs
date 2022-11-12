@@ -1,7 +1,4 @@
-//
-//@author Bayek
-//@dev server端进行监听，在client端发起链接
-//
+
 use std::io::{self, prelude::*, BufReader};
 use std::net::TcpStream;
 use std::str;

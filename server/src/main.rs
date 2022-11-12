@@ -1,22 +1,20 @@
-//
-//@author Bayek
-//@dev server用于监听
-//
 use std::net::{TcpListener, TcpStream};
 use std::thread;
 //std::thread库的引入，对输入的每一个流创建一个线程
 use std::time;
-use std::io::{self, Write};
+use std::io::{self, BufRead, BufReader, Read, Write};
+use std::str;
 //引入io库，为了处理错误
 
-fn handle_client(mut stream: TcpStream) -> io::Result<()> {
-    //该函数用来处理client（就是这个流），流的格式或者说他的类型就是TcpStream
-    //let mut buf = [0; 512];
-    //创建一个叫buf的数组，内容为0，长度为512
+fn handle_client(stream: TcpStream) -> io::Result<()> {
     loop {
-        stream.write("HelloWorld\n".as_ref())?;
+        let mut reader = BufReader::new(&stream);
+        let mut message = "".to_string();
+        reader.read_to_string( &mut message)?;
+        println!("服务端数据: {}", message);
+        //stream.write("HelloWorld\n".as_ref())?;
         //否则把它写回去
-        thread::sleep(time::Duration::from_secs(1));
+        //thread::sleep(time::Duration::from_secs(1));
         //调用sleep函数实现服务的间隔，间隔1s
     }
 }

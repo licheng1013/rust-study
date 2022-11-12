@@ -51,3 +51,7 @@
 - rustup override set nightly
 - 切换到稳定环境
 - rustup override set stable
+
+### 工具
+- 修复代码
+- cargo fix
