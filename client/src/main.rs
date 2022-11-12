@@ -22,7 +22,7 @@ fn main() {
 }
 
 fn client2() {
-    for i in 0..10{
+    for i in 0..5{
         thread::spawn(move || -> io::Result<()> {
             let stream = TcpStream::connect("127.0.0.1:8080")?;
             println!("启动线程: {:?}",i);
