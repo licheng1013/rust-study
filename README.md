@@ -5,6 +5,8 @@
 - 2022/10/22
 - Actix框架的基本使用
 - 本项目包含了大部分示例，请放心食用！
+- 个人博客Gitee: [https://licheng1013.gitee.io/](https://licheng1013.gitee.io/)
+- 个人博客Github: [https://licheng1013.github.io/](https://licheng1013.github.io/)
 
 ## Actix
 - 官网: [https://actix.rs/](https://actix.rs/)
