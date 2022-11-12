@@ -2,6 +2,24 @@ use std::sync::{Arc, mpsc, Mutex};
 use std::thread;
 use std::time::Duration;
 
+#[cfg(test)]
+mod test {
+    use crate::thread;
+    #[test]
+    fn test() {
+        println!("线程-------------------------------------------------------------------------");
+        thread::test1();
+        thread::test2();
+        thread::test3();
+        thread::test4();
+        thread::test5();
+        // 线程休眠
+        //sleep(Duration::from_secs(1));
+    }
+}
+
+
+
 // 线程阻塞示例
 pub fn test1() {
     let handle = thread::spawn(|| {

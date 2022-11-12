@@ -17,3 +17,14 @@ pub fn macro_test(){
     println!("列表: {:?}",vec1);
 }
 
+
+#[cfg(test)]
+mod test {
+    use crate::macro_demo;
+
+    #[test]
+    fn test() {
+        println!("宏-------------------------------------------------------------------------");
+        macro_demo::macro_test();
+    }
+}

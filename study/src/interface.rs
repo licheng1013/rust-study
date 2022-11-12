@@ -1,5 +1,17 @@
 // 面向对象设计 -> 多态 -> 泛型
 
+#[cfg(test)]
+mod test {
+    use crate::interface;
+
+    #[test]
+    fn test() {
+        println!("多态-------------------------------------------------------------------------");
+        interface::test1();
+    }
+}
+
+
 pub trait Animal {
     fn print(&self);
     fn get_name(&self) {
