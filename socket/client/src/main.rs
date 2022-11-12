@@ -1,7 +1,7 @@
 
-use std::io::{self, prelude::*, BufReader, BufWriter};
+use std::io::{self, prelude::*, BufWriter};
 use std::net::TcpStream;
-use std::{str, thread};
+use std::{ thread};
 use std::time::Duration;
 
 fn main() {
