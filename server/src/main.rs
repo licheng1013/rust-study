@@ -3,6 +3,7 @@ use std::net::{TcpListener, TcpStream};
 //std::thread库的引入，对输入的每一个流创建一个线程
 
 use std::io::{self, BufReader, Read};
+use std::thread;
 
 
 //引入io库，为了处理错误
@@ -30,7 +31,10 @@ fn main() -> io::Result<()> {
     //创建一个容器，用来放线程的句柄
     for stream in listener.incoming() {
         println!("建立连接");
-        handle_server(stream?)?;
+        thread::spawn(  ||  {
+            handle_server(stream.unwrap()).unwrap();
+        });
     }
+
     Ok(())
 }
