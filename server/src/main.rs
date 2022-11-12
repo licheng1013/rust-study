@@ -1,13 +1,13 @@
-use std::net::{Shutdown, TcpListener, TcpStream};
+use std::net::{TcpListener, TcpStream};
 
 //std::thread库的引入，对输入的每一个流创建一个线程
 
-use std::io::{self, BufRead, BufReader, Read, Write};
-use std::str;
+use std::io::{self, BufReader, Read};
+
 
 //引入io库，为了处理错误
 
-fn handle_server(mut stream: TcpStream) -> io::Result<()> {
+fn handle_server(stream: TcpStream) -> io::Result<()> {
     loop {
         let mut reader = BufReader::new(&stream);
         //let mut message = "".to_string();
