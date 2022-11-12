@@ -1,21 +1,26 @@
-use std::net::{TcpListener, TcpStream};
-use std::thread;
+use std::net::{Shutdown, TcpListener, TcpStream};
+
 //std::thread库的引入，对输入的每一个流创建一个线程
-use std::time;
+
 use std::io::{self, BufRead, BufReader, Read, Write};
 use std::str;
+
 //引入io库，为了处理错误
 
-fn handle_client(stream: TcpStream) -> io::Result<()> {
+fn handle_server(mut stream: TcpStream) -> io::Result<()> {
     loop {
         let mut reader = BufReader::new(&stream);
-        let mut message = "".to_string();
-        reader.read_to_string( &mut message)?;
-        println!("服务端数据: {}", message);
-        //stream.write("HelloWorld\n".as_ref())?;
-        //否则把它写回去
-        //thread::sleep(time::Duration::from_secs(1));
-        //调用sleep函数实现服务的间隔，间隔1s
+        //let mut message = "".to_string();
+        let mut message = vec![0; 1024 * 8];
+        let i = reader.read(&mut message)?;
+        if i > 0 {
+            println!(
+                "服务端数据: {}",
+                String::from_utf8((&message[0..i]).to_vec()).unwrap()
+            );
+            //stream.write("HelloWorld".as_ref()).unwrap();
+            //stream.shutdown(Shutdown::Both).unwrap()
+        }
     }
 }
 
@@ -25,8 +30,7 @@ fn main() -> io::Result<()> {
     //创建一个容器，用来放线程的句柄
     for stream in listener.incoming() {
         println!("建立连接");
-        handle_client(stream?)?;
+        handle_server(stream?)?;
     }
     Ok(())
 }
-
