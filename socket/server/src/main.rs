@@ -22,6 +22,7 @@ fn handle_server(stream: TcpStream) -> io::Result<()> {
             //stream.write("HelloWorld".as_ref()).unwrap();
             //stream.shutdown(Shutdown::Both).unwrap()
 
+            println!("输出到客户端！");
             writer.write(&message[0..i]).unwrap();
             writer.flush().unwrap();
             stream.shutdown(Shutdown::Both).unwrap();
