@@ -18,11 +18,11 @@ pub async fn main() {
     /// initialize rbatis. also you can call rb.clone(). this is  an Arc point
     let mut rb = Rbatis::new();
     //mysql
-    rb.init(MysqlDriver{},database_url.as_str()).await.unwrap();
+    rb.init(MysqlDriver{},database_url.as_str()).unwrap();
 
 
     let activity = Admin {
-        admin_id: Some("1".into()),
+        admin_id: Some(1.into()),
         user_name: Some("用户名称".into()),
         password:  Some("密码".into()),
         salt:  Some("盐值".into()),
@@ -44,8 +44,8 @@ pub async fn main() {
     let data = Admin::update_by_name(&mut rb, &activity, "test").await;
     println!("update_by_name = {:?}", data);
 
-    let data = Admin::delete_by_column(&mut rb, "id", &"2".into()).await;
-    println!("delete_by_column = {:?}", data);
+    // let data = Admin::delete_by_column(&mut rb, "id", &"2".into()).await;
+    // println!("delete_by_column = {:?}", data);
 
     let data = Admin::delete_by_name(&mut rb, "2").await;
     println!("delete_by_column = {:?}", data);
