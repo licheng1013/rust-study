@@ -13,16 +13,16 @@ pub async fn main() {
     dotenv().ok();
     let database_url = env::var("DATABASE_URL").expect("没有设置数据库连接");
 
-    /// enable log crate to show sql logs
+    // enable log crate to show sql logs
     fast_log::init(fast_log::Config::new().console()).expect("初始化日志失败");
-    /// initialize rbatis. also you can call rb.clone(). this is  an Arc point
+    // initialize rbatis. also you can call rb.clone(). this is  an Arc point
     let mut rb = Rbatis::new();
     //mysql
     rb.init(MysqlDriver{},database_url.as_str()).unwrap();
 
 
     let activity = Admin {
-        admin_id: Some(1.into()),
+        admin_id: Some(2.into()),
         user_name: Some("用户名称".into()),
         password:  Some("密码".into()),
         salt:  Some("盐值".into()),
@@ -32,7 +32,7 @@ pub async fn main() {
     let data = Admin::insert(&mut rb, &activity).await;
     println!("insert = {:?}", data);
 
-    let data = Admin::select_all_by_id(&mut rb, "1", "1").await;
+    let data = Admin::select_all_by_id(&mut rb, "1").await;
     println!("select_all_by_id = {:?}", data);
 
     let data = Admin::select_by_id(&mut rb, "1".to_string()).await;
