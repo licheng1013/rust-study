@@ -4,7 +4,7 @@ use rbatis::Rbatis;
 use rbatis::rbdc::datetime::FastDateTime;
 use rbatis::sql::PageRequest;
 use rbdc_mysql::driver::MysqlDriver;
-use crate::service::biz_activity::Admin;
+use crate::service::admin::Admin;
 
 mod service;
 

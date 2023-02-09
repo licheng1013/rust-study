@@ -1,1 +1,1 @@
-pub mod biz_activity;
+pub mod admin;
