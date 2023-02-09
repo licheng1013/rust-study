@@ -38,3 +38,6 @@ actix-cors = "0.6"
 
 # Jwt
 jsonwebtoken = "8"
+
+# 环境库 .env 读取
+dotenvy = "0.15"
