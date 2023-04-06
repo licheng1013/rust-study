@@ -1,5 +1,5 @@
 mod async_test;
-#[allow(dead_code)]
+#[allow(dead_code)] // 允许未使用的代码
 mod closure;
 #[allow(dead_code)]
 mod file;
@@ -17,6 +17,9 @@ mod thread;
 
 #[allow(dead_code)]
 mod command;
+
+#[allow(dead_code)]
+mod zip;
 
 #[tokio::main]
 async fn main() {
