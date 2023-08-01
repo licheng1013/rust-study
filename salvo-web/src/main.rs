@@ -1,3 +1,7 @@
+
+use rbatis::RBatis;
+use rbdc_mysql::driver::MysqlDriver;
+use salvo::__private::once_cell::sync::Lazy;
 use salvo::prelude::*;
 use crate::util::result::ok_data;
 
@@ -6,6 +10,9 @@ mod api;
 mod logic;
 mod model;
 
+
+pub static RB: Lazy<RBatis> = Lazy::new(RBatis::new);
+
 #[handler]
 async fn hello(_req: &mut Request, _depot: &mut Depot, res: &mut Response) {
     res.render(Json(ok_data("HelloWorld")));
@@ -13,6 +20,11 @@ async fn hello(_req: &mut Request, _depot: &mut Depot, res: &mut Response) {
 
 #[tokio::main]
 async fn main() {
+    // mysql connect info
+    let mysql_uri = "mysql://root:root@192.168.101.90/t_gorm";
+    RB.init(MysqlDriver {}, mysql_uri).unwrap();
+
+
     let acceptor = TcpListener::new("127.0.0.1:5800").bind().await;
     let router =  Router::new().get(hello)
         .push(api::admin_api::router());
