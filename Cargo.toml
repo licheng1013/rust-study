@@ -5,4 +5,5 @@ members = [
     "study",
     "diesel",
     "rbatis",
+    "salvo-web"
 ]
