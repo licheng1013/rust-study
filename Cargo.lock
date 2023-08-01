@@ -3001,6 +3001,7 @@ name = "salvo-web"
 version = "0.1.0"
 dependencies = [
  "salvo",
+ "serde",
  "tokio",
 ]
 
