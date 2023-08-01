@@ -1,7 +1,7 @@
 use salvo::prelude::*;
 
 #[handler]
-async fn hello(res: &mut Response) {
+async fn hello(_req: &mut Request, _depot: &mut Depot, res: &mut Response) {
     res.render(Text::Plain("Hello World"));
 }
 
