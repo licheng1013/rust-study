@@ -9,6 +9,7 @@ mod util;
 mod api;
 mod logic;
 mod model;
+mod common;
 
 
 pub static RB: Lazy<RBatis> = Lazy::new(RBatis::new);
