@@ -6,30 +6,30 @@ use crate::util::page::PageParam;
 use crate::util::result::ok_data;
 
 #[handler]
-async fn list(_req: &mut Request, _depot: &mut Depot, res: &mut Response) {
-    let admin : Admin = _req.parse_queries().unwrap();
-    let page : PageParam = _req.parse_queries().unwrap();
-    let data = logic::admin_logic::list(page,admin).await;
+async fn list(_req: &mut Request, res: &mut Response) {
+    let admin: Admin = _req.parse_queries().unwrap();
+    let page: PageParam = _req.parse_queries().unwrap();
+    let data = logic::admin_logic::list(page, admin).await;
     res.render(Json(ok_data(&data)));
 }
 
 #[handler]
-async fn update(_req: &mut Request, _depot: &mut Depot, res: &mut Response) {
-    let admin : Admin = _req.parse_json().await.unwrap();
+async fn update(_req: &mut Request, res: &mut Response) {
+    let admin: Admin = _req.parse_json().await.unwrap();
     logic::admin_logic::update(admin).await;
     res.render(Json(ok_data("修改成功!")));
 }
 
 #[handler]
-async fn delete(_req: &mut Request, _depot: &mut Depot, res: &mut Response) {
-    let admin : Admin = _req.parse_json().await.unwrap();
+async fn delete(_req: &mut Request, res: &mut Response) {
+    let admin: Admin = _req.parse_json().await.unwrap();
     logic::admin_logic::delete(admin).await;
     res.render(Json(ok_data("删除成功!")));
 }
 
 #[handler]
-async fn insert(_req: &mut Request, _depot: &mut Depot, res: &mut Response) {
-    let admin : Admin = _req.parse_json().await.unwrap();
+async fn insert(_req: &mut Request, res: &mut Response) {
+    let admin: Admin = _req.parse_json().await.unwrap();
     logic::admin_logic::insert(admin).await;
     res.render(Json(ok_data("插入成功!")));
 }

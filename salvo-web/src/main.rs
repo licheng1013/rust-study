@@ -15,7 +15,7 @@ mod common;
 pub static RB: Lazy<RBatis> = Lazy::new(RBatis::new);
 
 #[handler]
-async fn hello(_req: &mut Request, _depot: &mut Depot, res: &mut Response) {
+async fn hello(_req: &mut Request,  res: &mut Response) {
     res.render(Json(ok_data("HelloWorld")));
 }
 
