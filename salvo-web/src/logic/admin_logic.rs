@@ -10,8 +10,8 @@ const TABLE_NAME: &str = "t_admin";
 crud!(Admin{},TABLE_NAME);
 
 impl_select!(Admin{select_by_id(id:String) -> Option => "`where id = #{id} limit 1`"},TABLE_NAME);
-impl_update!(Admin{update(id:&str) => "`where admin_id = #{id}`"},TABLE_NAME);
-impl_delete!(Admin {delete(id:&str) => "`where admin_id = #{id}`"},TABLE_NAME);
+impl_update!(Admin{update(id:&str) => "`where id = #{id}`"},TABLE_NAME);
+impl_delete!(Admin {delete(id:&str) => "`where id = #{id}`"},TABLE_NAME);
 impl_select_page!(Admin{page(name:&str) => "``"},TABLE_NAME);
 
 pub async fn list(page: PageParam, admin: Admin) -> PageResult<Vec<Admin>> {
