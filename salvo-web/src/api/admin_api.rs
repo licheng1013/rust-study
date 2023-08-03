@@ -7,30 +7,30 @@ use crate::util::result::ok_data;
 
 #[handler]
 async fn list(_req: &mut Request, res: &mut Response) {
-    let admin: Admin = _req.parse_queries().unwrap();
+    let model: Admin = _req.parse_queries().unwrap();
     let page: PageParam = _req.parse_queries().unwrap();
-    let data = logic::admin_logic::list(page, admin).await;
+    let data = logic::admin_logic::list(page, model).await;
     res.render(Json(ok_data(&data)));
 }
 
 #[handler]
 async fn update(_req: &mut Request, res: &mut Response) {
-    let admin: Admin = _req.parse_json().await.unwrap();
-    logic::admin_logic::update(admin).await;
+    let model: Admin = _req.parse_json().await.unwrap();
+    logic::admin_logic::update(model).await;
     res.render(Json(ok_data("修改成功!")));
 }
 
 #[handler]
 async fn delete(_req: &mut Request, res: &mut Response) {
-    let admin: Admin = _req.parse_json().await.unwrap();
-    logic::admin_logic::delete(admin).await;
+    let model: Admin = _req.parse_json().await.unwrap();
+    logic::admin_logic::delete(model).await;
     res.render(Json(ok_data("删除成功!")));
 }
 
 #[handler]
 async fn insert(_req: &mut Request, res: &mut Response) {
-    let admin: Admin = _req.parse_json().await.unwrap();
-    logic::admin_logic::insert(admin).await;
+    let model: Admin = _req.parse_json().await.unwrap();
+    logic::admin_logic::insert(model).await;
     res.render(Json(ok_data("插入成功!")));
 }
 
