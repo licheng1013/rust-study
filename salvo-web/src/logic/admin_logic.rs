@@ -1,7 +1,6 @@
-use std::any::Any;
 use rbatis::{crud, impl_delete, impl_select, impl_select_page, impl_update};
 use rbatis::rbdc::datetime::DateTime;
-use rbatis::sql::{Page, PageRequest};
+use rbatis::sql::PageRequest;
 use crate::model::admin::Admin;
 use crate::RB;
 use crate::util::page::{PageParam, PageResult};
@@ -19,7 +18,7 @@ pub async fn list(page: PageParam, admin: Admin) -> PageResult<Vec<Admin>> {
     let result = Admin::page(
         &mut RB.clone(),
         &PageRequest::new(page.page.unwrap_or(1)
-                          ,page.size.unwrap_or(10)), "").await.unwrap();
+                          , page.size.unwrap_or(10)), "").await.unwrap();
     return PageResult {
         total: result.total,
         list: result.records,
@@ -27,16 +26,21 @@ pub async fn list(page: PageParam, admin: Admin) -> PageResult<Vec<Admin>> {
 }
 
 pub async fn update(admin: Admin) {
-    println!("{admin:?}")
+    let result = Admin::update_by_column(&mut RB.clone()
+                                         , &admin, "id").await.unwrap();
+    println!("{result:?}")
 }
 
 pub async fn delete(admin: Admin) {
-    println!("{admin:?}")
+    let result = Admin::delete_by_column(&mut RB.clone(), "id"
+                                         , admin.id.unwrap_or(0)).await.unwrap();
+    println!("{result:?}")
 }
 
 pub async fn insert(mut admin: Admin) {
     admin.create_time = Some(DateTime::now());
-    Admin::insert(&mut RB.clone(), &admin).await.unwrap();
+    let result = Admin::insert(&mut RB.clone(), &admin).await.unwrap();
+    println!("{result:?}")
 }
 
 
