@@ -1,1 +1,7 @@
-{"autoModPath":"$PROJECT$/salvo-web/src"}
+{
+   "apiPath" : "$PROJECT$/salvo-web/src/api",
+   "autoModPath" : "$PROJECT$/salvo-web/src",
+   "logicPath" : "$PROJECT$/salvo-web/src/logic",
+   "modelPath" : "$PROJECT$/salvo-web/src/model",
+   "packagePath" : "$PROJECT$/salvo-web/src"
+}
