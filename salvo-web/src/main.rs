@@ -29,6 +29,7 @@ async fn main() {
     let acceptor = TcpListener::new("127.0.0.1:5800").bind().await;
     let router =  Router::new().get(hello)
         .push(api::file_api::router())
+        .push(api::user_info_api::router())
         .push(api::admin_api::router());
 
     println!("http://127.0.0.1:5800");

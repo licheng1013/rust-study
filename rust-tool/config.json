@@ -1,10 +1,13 @@
 {
-   "apiBox" : true,
+   "apiBox" : false,
    "apiPath" : "$PROJECT$/salvo-web/src/api",
+   "apiSuffix" : "_api.rs",
    "autoModPath" : "$PROJECT$/salvo-web/src",
    "logicBox" : true,
    "logicPath" : "$PROJECT$/salvo-web/src/logic",
-   "modelBox" : true,
+   "logicSuffix" : "_logic.rs",
+   "modelBox" : false,
    "modelPath" : "$PROJECT$/salvo-web/src/model",
-   "packagePath" : "$PROJECT$/salvo-web/src"
+   "packagePath" : "$PROJECT$/salvo-web/src",
+   "prefix" : "t_"
 }
