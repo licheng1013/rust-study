@@ -7,7 +7,7 @@ pub fn redis_api(cfg: &mut web::ServiceConfig) {
     cfg.service(web::scope("/redis").service(set).service(get).service(del));
 }
 
-#[get("set/{path}")]
+#[get("/set/{path}")]
 pub async fn set(
     path: Path<String>,
     redis: web::Data<redis::Client>,
@@ -30,7 +30,7 @@ pub async fn set(
     }
 }
 
-#[get("get/{path}")]
+#[get("/get/{path}")]
 pub async fn get(
     path: Path<String>,
     redis: web::Data<redis::Client>,
@@ -55,7 +55,7 @@ pub async fn get(
     // Ok(Json(ok_msg(ok)))
 }
 
-#[get("del")]
+#[get("/del")]
 pub async fn del(redis: web::Data<redis::Client>) -> actix_web::Result<impl Responder> {
     let mut conn = redis
         .get_tokio_connection_manager()

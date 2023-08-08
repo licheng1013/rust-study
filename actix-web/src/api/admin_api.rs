@@ -7,7 +7,7 @@ use crate::util::result::ok_data;
 
 pub fn admin_api(cfg: &mut ServiceConfig) {
     cfg.service(
-        web::scope("/admin")
+        scope("/admin")
             .service(list)
             .service(update)
             .service(delete)
@@ -23,19 +23,19 @@ async fn list(user: Query<Admin>) -> Result<impl Responder> {
 }
 
 /// 修改
-#[post("/update")]
+#[post ("/update")]
 async fn update(user: Query<Admin>) -> Result<impl Responder> {
     Ok(Json(ok_data(user.into_inner())))
 }
 
 /// 删除
-#[post("/delete")]
+#[delete("/delete")]
 async fn delete(user: Query<Admin>) -> Result<impl Responder> {
     Ok(Json(ok_data(user.into_inner())))
 }
 
 /// 插入
-#[post("/insert")]
+#[put("/insert")]
 async fn insert(user: Query<Admin>) -> Result<impl Responder> {
     Ok(Json(ok_data(user.into_inner())))
 }
