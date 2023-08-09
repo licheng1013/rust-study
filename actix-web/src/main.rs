@@ -23,6 +23,7 @@ async fn main() -> std::io::Result<()> {
         App::new()
             .app_data(web::Data::new(rb.to_owned())) //mysql
             .configure(api::admin_api::admin_api)
+            .configure(api::user_info_api::user_info_api)
     })
         .bind(("0.0.0.0", 8080))?
         .run()

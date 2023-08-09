@@ -1,9 +1,10 @@
 use std::future::IntoFuture;
-use rbatis::{crud, impl_select_page};
+use std::sync::Arc;
+use actix_web::web::Data;
+use rbatis::{crud, impl_select_page, RBatis};
 use rbatis::rbdc::datetime::DateTime;
 use rbatis::sql::PageRequest;
 use crate::model::user_info::UserInfo;
-use crate::RB;
 use crate::util::page::{PageParam, PageResult};
 
 const TABLE_NAME: &str = "t_user_info";
@@ -11,11 +12,12 @@ const TABLE_NAME: &str = "t_user_info";
 crud!(UserInfo{},TABLE_NAME);
 impl_select_page!(UserInfo{page(where_str:&str) => "${where_str}"},TABLE_NAME);
 
-pub async fn list(page: PageParam, model: UserInfo) -> PageResult<Vec<UserInfo>> {
+pub async fn list(page: PageParam, model: UserInfo,  rb: Data<Arc<RBatis>>) -> PageResult<Vec<UserInfo>> {
+    let mut executor = rb.acquire().await.expect("加载失败");
     let condition = where_condition(model);
     println!("{condition:?}");
     let result = UserInfo::page(
-        &mut RB.clone(),
+        &mut executor,
         &PageRequest::new(page.page.unwrap_or(1)
                           , page.size.unwrap_or(10)), &condition).await.unwrap();
     return PageResult {
@@ -24,21 +26,24 @@ pub async fn list(page: PageParam, model: UserInfo) -> PageResult<Vec<UserInfo>>
     };
 }
 
-pub async fn update(model: UserInfo) {
-    let result = UserInfo::update_by_column(&mut RB.clone()
+pub async fn update(model: UserInfo,  rb: Data<Arc<RBatis>>) {
+    let mut executor = rb.acquire().await.expect("加载失败");
+    let result = UserInfo::update_by_column(&mut executor
                                          , &model, "id").await.unwrap();
     println!("{result:?}")
 }
 
-pub async fn delete(model: UserInfo) {
-    let result = UserInfo::delete_by_column(&mut RB.clone(), "id"
+pub async fn delete(model: UserInfo,  rb: Data<Arc<RBatis>>) {
+    let mut executor = rb.acquire().await.expect("加载失败");
+    let result = UserInfo::delete_by_column(&mut executor, "id"
                                          , model.id.unwrap_or(0)).await.unwrap();
     println!("{result:?}")
 }
 
-pub async fn insert(mut model: UserInfo) {
+pub async fn insert(mut model: UserInfo,  rb: Data<Arc<RBatis>>) {
+    let mut executor = rb.acquire().await.expect("加载失败");
     model.create_time = Some(DateTime::now());
-    let result = UserInfo::insert(&mut RB.clone(), &model).await.unwrap();
+    let result = UserInfo::insert(&mut executor, &model).await.unwrap();
     println!("{result:?}")
 }
 
