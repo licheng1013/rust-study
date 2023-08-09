@@ -9,3 +9,8 @@ edition = "2021"
 
 diesel = { version = "2.0.0", features = ["mysql"] }
 dotenvy = "0.15"
+
+
+# 序列化
+serde = { version = "1.0.180", features = ["derive"] } #序列化
+serde_json = "1"

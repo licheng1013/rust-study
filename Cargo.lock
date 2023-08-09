@@ -32,7 +32,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "b340e9cfa5b08690aae90fb61beb44e9b06f44fe3d0f93781aaa58cfba86245e"
 dependencies = [
  "actix-utils",
- "actix-web 4.3.1",
+ "actix-web",
  "derive_more",
  "futures-util",
  "log",
@@ -96,7 +96,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "c9edfb0e7663d7fe18c8d5b668c9c1bcf79176b1dcc9d4da9592503209a6bfb0"
 dependencies = [
  "actix-utils",
- "actix-web 4.3.1",
+ "actix-web",
  "bytes",
  "derive_more",
  "futures-core",
@@ -171,18 +171,6 @@ dependencies = [
 
 [[package]]
 name = "actix-web"
-version = "0.1.0"
-dependencies = [
- "actix-web 4.3.1",
- "rbatis 4.3.10",
- "rbdc-mysql",
- "rbs",
- "serde",
- "serde_json",
-]
-
-[[package]]
-name = "actix-web"
 version = "4.3.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "cd3cb42f9566ab176e1ef0b8b3a896529062b4efc6be0123046095914c4c1c96"
@@ -220,6 +208,18 @@ dependencies = [
  "socket2",
  "time 0.3.24",
  "url",
+]
+
+[[package]]
+name = "actix-web-api"
+version = "0.1.0"
+dependencies = [
+ "actix-web",
+ "rbatis 4.3.10",
+ "rbdc-mysql",
+ "rbs",
+ "serde",
+ "serde_json",
 ]
 
 [[package]]
@@ -364,7 +364,7 @@ version = "0.1.0"
 dependencies = [
  "actix-cors",
  "actix-multipart",
- "actix-web 4.3.1",
+ "actix-web",
  "chrono",
  "dotenvy",
  "env_logger 0.7.1",
@@ -1000,6 +1000,8 @@ version = "0.1.0"
 dependencies = [
  "diesel 2.1.0",
  "dotenvy",
+ "serde",
+ "serde_json",
 ]
 
 [[package]]
@@ -2953,7 +2955,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "salvo-web"
+name = "salvo-web-api"
 version = "0.1.0"
 dependencies = [
  "rbatis 4.3.10",

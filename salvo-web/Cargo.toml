@@ -1,5 +1,5 @@
 [package]
-name = "salvo-web"
+name = "salvo-web-api"
 version = "0.1.0"
 edition = "2021"
 

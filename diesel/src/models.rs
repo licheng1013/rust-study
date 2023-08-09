@@ -1,5 +1,6 @@
 use crate::schema::posts;
 use diesel::prelude::*;
+use serde::{Deserialize, Serialize};
 
 #[derive(Queryable,Serialize, Deserialize, Debug)]
 pub struct Post {
