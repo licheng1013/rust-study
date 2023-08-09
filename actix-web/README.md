@@ -5,6 +5,10 @@
 - 一个web框架
 - 文档: [https://github.com/actix/examples](https://github.com/actix/examples)
 
+## 功能演示
+![](images/doc.png)
+- 自动导入mod.rs你需要选中一个项目目录，在你mod.rs目录创建文件并修改时，会自动导入到mod.rs中。
+- 由于idea的需要延迟刷新文件内容。你可能需要切换下 软件窗口 或 关闭文件再次打开。即可看到效果。
 
 ## 开始
 
