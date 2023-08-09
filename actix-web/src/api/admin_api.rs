@@ -27,21 +27,21 @@ async fn list(model: Query<Admin>,page:Query<PageParam>, rb: Data<Arc<RBatis>>) 
 
 /// 修改
 #[post ("/update")]
-async fn update(model: Query<Admin>, rb: Data<Arc<RBatis>>) -> Result<impl Responder> {
+async fn update(model: Json<Admin>, rb: Data<Arc<RBatis>>) -> Result<impl Responder> {
     logic::admin_logic::update(model.into_inner(),rb).await;
     Ok(Json(ok_msg("修改成功".to_string())))
 }
 
 /// 删除
-#[delete("/delete")]
-async fn delete(model: Query<Admin>, rb: Data<Arc<RBatis>>) -> Result<impl Responder> {
+#[post("/delete")]
+async fn delete(model: Json<Admin>, rb: Data<Arc<RBatis>>) -> Result<impl Responder> {
     logic::admin_logic::delete(model.into_inner(),rb).await;
     Ok(Json(ok_msg("删除成功".to_string())))
 }
 
 /// 插入
-#[put("/insert")]
-async fn insert(model: Query<Admin>, rb: Data<Arc<RBatis>>) -> Result<impl Responder> {
+#[post("/insert")]
+async fn insert(model: Json<Admin>, rb: Data<Arc<RBatis>>) -> Result<impl Responder> {
     logic::admin_logic::insert(model.into_inner(),rb).await;
     Ok(Json(ok_msg("插入成功".to_string())))
 }
