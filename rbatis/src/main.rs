@@ -45,4 +45,8 @@ pub async fn main() {
 
     let data = Admin::page(&mut rb, &PageRequest::new(1, 10)).await;
     println!("分页 = {:?}", data);
+
+    let data = service::admin::select_by_condition(&mut rb, "%admin%").await;
+    println!("htmlSql = {:?}", data);
+
 }
