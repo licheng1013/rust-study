@@ -2188,20 +2188,6 @@ dependencies = [
 
 [[package]]
 name = "rbatis"
-version = "0.1.0"
-dependencies = [
- "dotenvy",
- "fast_log",
- "log",
- "rbatis 4.3.10",
- "rbdc-mysql",
- "rbs",
- "serde",
- "tokio",
-]
-
-[[package]]
-name = "rbatis"
 version = "4.3.10"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "3661ebd3c86ff394b2e6490a3f5c078df674888ce250e6747f0e66c363e69620"
@@ -2249,6 +2235,20 @@ dependencies = [
  "quote",
  "rbatis-codegen",
  "syn 2.0.28",
+]
+
+[[package]]
+name = "rbatis-orm"
+version = "0.1.0"
+dependencies = [
+ "dotenvy",
+ "fast_log",
+ "log",
+ "rbatis",
+ "rbdc-mysql",
+ "rbs",
+ "serde",
+ "tokio",
 ]
 
 [[package]]
