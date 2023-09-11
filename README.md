@@ -8,6 +8,9 @@
 - 个人博客Gitee: [https://licheng1013.gitee.io/](https://licheng1013.gitee.io/)
 - 个人博客Github: [https://licheng1013.github.io/](https://licheng1013.github.io/)
 
+## Idea-Plugin
+- Web框架示例 [https://github.com/licheng1013/rust-tool-example](https://github.com/licheng1013/rust-tool-example)
+
 ## Actix
 - 官网: [https://actix.rs/](https://actix.rs/)
 - github: [https://github.com/actix/actix-web](https://github.com/actix/actix-web)
