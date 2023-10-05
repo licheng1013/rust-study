@@ -23,7 +23,29 @@ impl_update!(Admin{update(id:&str) => "`where id = #{id}`"},TABLE_NAME);
 impl_delete!(Admin {delete(id:&str) => "`where id = #{id}`"},TABLE_NAME);
 impl_select_page!(Admin{page() => ""},TABLE_NAME);
 
+
 #[html_sql("rbatis/example.html")]
 pub async fn select_by_condition(rb: &mut dyn Executor, user_name: &str) -> Vec<Admin> {
+    impled!()
+}
+
+#[html_sql("rbatis/example_test.html")]
+pub async fn select_by_name(rb: &mut dyn Executor, user_name: &str) -> Vec<Admin> {
+    impled!()
+}
+
+#[html_sql("rbatis/example_test.html")]
+pub async fn update_by_name(rb: &mut dyn Executor, user_name: &str) -> Vec<Admin> {
+    impled!()
+}
+
+
+#[html_sql("rbatis/example_test.html")]
+pub async fn delete_by_name(rb: &mut dyn Executor, user_name: &str) -> Vec<Admin> {
+    impled!()
+}
+
+#[html_sql("rbatis/example_test.html")]
+pub async fn delete_by_age(rb: &mut dyn Executor, user_name: &str) -> Vec<Admin> {
     impled!()
 }
