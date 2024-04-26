@@ -3,7 +3,4 @@
 members = [
     "api",
     "study",
-    "diesel",
-    "rbatis",
-    "monitor"
 ]
