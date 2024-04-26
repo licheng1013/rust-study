@@ -1,6 +1,6 @@
 
 use serde::{Deserialize, Serialize};
-use my_macro::GettersForFieldNames;
+use my_macro::{GetFieldName};
 
 fn main() {
     let user = User{
@@ -8,7 +8,6 @@ fn main() {
         age: Some(12),
         email: Some("200@qq.com".to_string()),
     };
-
     println!("{:?}", user);
     println!("{}", user.get_name());
     println!("{}", user.get_age());
@@ -16,7 +15,7 @@ fn main() {
 }
 
 
-#[derive(GettersForFieldNames,Serialize, Deserialize, Debug)]
+#[derive(GetFieldName,Serialize, Deserialize, Debug, Clone)]
 pub struct User{
     pub name: Option<String>,
     pub age: Option<u32>,
